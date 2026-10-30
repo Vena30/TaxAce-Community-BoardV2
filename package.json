@@ -1,0 +1,18 @@
+{
+  "name": "taxace-community-board",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TaxAce Community Board - shared, login-protected team feed (Vercel + Neon)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node scripts/dev-server.js",
+    "db:init": "node scripts/init-db.js",
+    "seed-admin": "node scripts/seed-admin.js"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^1.0.0",
+    "qrcode": "^1.5.4"
+  }
+}
