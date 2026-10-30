@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
 <title>TaxAce Community Board</title>
 <style>
 :root{
@@ -287,6 +288,11 @@ body.locked .wrap,body.locked .tstrip{visibility:hidden}
 .ev-h .flag{font-size:12px}
 .tstrip-em .flag{font-size:12px;vertical-align:-.12em}
 .df .flag{box-shadow:none}
+
+/* Demo mode */
+.demo-box{background:rgba(217,138,0,.12);border:1.5px solid #d98a00;border-radius:10px;padding:10px 12px;margin-top:14px;font-size:12px;line-height:1.55;color:var(--tx)}
+.demo-box code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;background:var(--sf);border:1px solid var(--ln);border-radius:5px;padding:1px 5px;user-select:all}
+body.demo .real-only{display:none!important}
 </style>
 </head>
 <body class="locked">
@@ -314,8 +320,9 @@ body.locked .wrap,body.locked .tstrip{visibility:hidden}
       <div class="am-who"><strong id="am-nm"></strong><span id="am-em"></span></div>
       <button onclick="pickAvatar()">📷 Change profile photo</button>
       <button id="am-rmav" onclick="removeAvatar()" style="display:none">🖼️ Remove profile photo</button>
-      <button onclick="openPwModal()">🔑 Change password</button>
+      <button class="real-only" onclick="openPwModal()">🔑 Change password</button>
       <button id="am-admin" onclick="openAdmin()" style="display:none">👥 Manage team</button>
+      <button class="demo-only" id="am-reset" onclick="resetDemo()" style="display:none">♻️ Reset demo data</button>
       <button onclick="logout()">🚪 Log out</button>
     </div>
   </div>
@@ -333,7 +340,7 @@ body.locked .wrap,body.locked .tstrip{visibility:hidden}
       <div class="pf-av-wrap"><div class="pf-av" id="pf-av">?</div><button class="pf-cam" onclick="pickAvatar()" title="Change profile photo" aria-label="Change profile photo">📷</button></div>
       <div><div class="pf-nm" id="pf-nm">Team Member</div><div class="pf-ro" id="pf-ro">TaxAce Team</div></div>
       <div class="pf-em" id="pf-em"></div>
-      <button class="pf-sv alt" onclick="openPwModal()">Change password</button>
+      <button class="pf-sv alt real-only" onclick="openPwModal()">Change password</button>
       <button class="pf-sv alt" id="sb-admin" onclick="openAdmin()" style="display:none">Manage team</button>
       <button class="pf-sv alt" onclick="logout()">Log out</button>
     </div>
@@ -437,20 +444,47 @@ const T={
 /* ── DATA ── */
 const MO=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const MO_EM=['🎆','💝','🍀','🌸','🌺','🌈','🇺🇸','☀️','🍂','🎃','🦃','🎄'];
-const EV={
-  0:{us:[{d:'Jan 1',n:'New Year\'s Day 🎆'},{d:'Jan 20',n:'MLK Jr. Day ✊'}],ph:[{d:'Jan 1',n:'New Year\'s Day 🎆'},{d:'Jan 29',n:'Chinese New Year 🧧'}]},
-  1:{us:[{d:'Feb 14',n:'Valentine\'s Day 💝'},{d:'Feb 17',n:'Presidents\' Day 🇺🇸'}],ph:[{d:'Feb 14',n:'Valentine\'s Day 💝'},{d:'Feb 25',n:'EDSA Anniversary 🕊️'}]},
-  2:{us:[{d:'Mar 8',n:'Women\'s Day 💜'},{d:'Mar 17',n:'St. Patrick\'s Day 🍀'}],ph:[{d:'Mar 8',n:'Women\'s Day 💜'}]},
-  3:{us:[{d:'Apr 15',n:'Tax Day 📋'},{d:'Apr 18',n:'Good Friday 🙏'},{d:'Apr 20',n:'Easter 🌸'}],ph:[{d:'Apr 9',n:'Araw ng Kagitingan 🎖️'},{d:'Apr 17',n:'Holy Thursday 🙏'},{d:'Apr 18',n:'Good Friday 🙏'},{d:'Apr 20',n:'Easter 🌸'}]},
-  4:{us:[{d:'May 11',n:'Mother\'s Day 💐'},{d:'May 26',n:'Memorial Day 🪖'}],ph:[{d:'May 1',n:'Labor Day 👷'},{d:'May 11',n:'Mother\'s Day 💐'}]},
-  5:{us:[{d:'Jun 15',n:'Father\'s Day 👔'},{d:'Jun 19',n:'Juneteenth 🗽'}],ph:[{d:'Jun 12',n:'Independence Day 🎉'},{d:'Jun 15',n:'Father\'s Day 👔'}]},
-  6:{us:[{d:'Jul 4',n:'Independence Day 🎆'}],ph:[{d:'Jul 4',n:'Fil-American Friendship Day 🤝'}]},
-  7:{us:[{d:'Aug',n:'Back to School 📚'}],ph:[{d:'Aug 21',n:'Ninoy Aquino Day 🕊️'},{d:'Aug 25',n:'National Heroes Day 🎖️'}]},
-  8:{us:[{d:'Sep 1',n:'Labor Day 👷'},{d:'Sep 11',n:'Patriot Day 🕯️'}],ph:[{d:'Sep',n:'Buwan ng Wikang Pambansa 📖'}]},
-  9:{us:[{d:'Oct 13',n:'Columbus Day 🧭'},{d:'Oct 31',n:'Halloween 🎃'}],ph:[]},
-  10:{us:[{d:'Nov 11',n:'Veterans Day 🎖️'},{d:'Nov 27',n:'Thanksgiving 🦃'}],ph:[{d:'Nov 1',n:'All Saints\' Day 🕯️'},{d:'Nov 2',n:'All Souls\' Day 🕯️'},{d:'Nov 30',n:'Bonifacio Day 🎖️'}]},
-  11:{us:[{d:'Dec 25',n:'Christmas 🎄'},{d:'Dec 31',n:'New Year\'s Eve 🎆'}],ph:[{d:'Dec 8',n:'Immaculate Conception 🌺'},{d:'Dec 24',n:'Christmas Eve 🌟'},{d:'Dec 25',n:'Christmas 🎄'},{d:'Dec 30',n:'Rizal Day 🎖️'},{d:'Dec 31',n:'New Year\'s Eve 🎆'}]}
-};
+const MO3=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+/* nth weekday of a month (dow 0=Sun..6=Sat; n=1..4, or -1 for the last one) */
+function nthDow(y,m,dow,n){
+  if(n>0){const first=new Date(y,m,1).getDay();return 1+((dow-first+7)%7)+(n-1)*7}
+  const last=new Date(y,m+1,0);return last.getDate()-((last.getDay()-dow+7)%7);
+}
+function easterDate(y){
+  const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),
+    h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),
+    mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;
+  return new Date(y,mo-1,da);
+}
+const CNY={2025:[0,29],2026:[1,17],2027:[1,6],2028:[0,26],2029:[1,13],2030:[1,3]};
+/* Holidays for one month of one year. Dates that move (Thanksgiving, Easter...) are worked out, not typed in. */
+function evFor(mo,yr){
+  const us=[],ph=[];
+  const add=(arr,m,day,n)=>{if(m===mo)arr.push({day:day,d:day?MO3[m]+' '+day:MO3[m],n:n})};
+  const both=(m,day,n)=>{add(us,m,day,n);add(ph,m,day,n)};
+  const ea=easterDate(yr),off=x=>new Date(yr,ea.getMonth(),ea.getDate()+x);
+  const gf=off(-2),ht=off(-3);
+  const mothers=nthDow(yr,4,0,2),fathers=nthDow(yr,5,0,3);
+  // both countries
+  both(0,1,"New Year's Day 🎆");both(1,14,"Valentine's Day 💝");both(2,8,"Women's Day 💜");
+  both(gf.getMonth(),gf.getDate(),'Good Friday 🙏');both(ea.getMonth(),ea.getDate(),'Easter 🌸');
+  both(4,mothers,"Mother's Day 💐");both(5,fathers,"Father's Day 👔");both(11,25,'Christmas 🎄');both(11,31,"New Year's Eve 🎆");
+  // US
+  add(us,0,nthDow(yr,0,1,3),'MLK Jr. Day ✊');add(us,1,nthDow(yr,1,1,3),"Presidents' Day 🏛️");add(us,2,17,"St. Patrick's Day 🍀");
+  add(us,3,15,'Tax Day 📋');add(us,4,nthDow(yr,4,1,-1),'Memorial Day 🪖');add(us,5,19,'Juneteenth 🗽');
+  add(us,6,4,'Independence Day 🎆');add(us,7,null,'Back to School 📚');add(us,8,nthDow(yr,8,1,1),'Labor Day 👷');
+  add(us,8,11,'Patriot Day 🕯️');add(us,9,nthDow(yr,9,1,2),'Columbus Day 🧭');add(us,9,31,'Halloween 🎃');
+  add(us,10,11,'Veterans Day 🎖️');add(us,10,nthDow(yr,10,4,4),'Thanksgiving 🦃');
+  // Philippines
+  if(CNY[yr])add(ph,CNY[yr][0],CNY[yr][1],'Chinese New Year 🧧');
+  add(ph,1,25,'EDSA Anniversary 🕊️');add(ph,3,9,'Araw ng Kagitingan 🎖️');add(ph,ht.getMonth(),ht.getDate(),'Holy Thursday 🙏');
+  add(ph,4,1,'Labor Day 👷');add(ph,5,12,'Independence Day 🎉');add(ph,6,4,'Fil-American Friendship Day 🤝');
+  add(ph,7,21,'Ninoy Aquino Day 🕊️');add(ph,7,nthDow(yr,7,1,-1),'National Heroes Day 🎖️');
+  add(ph,8,null,'Buwan ng Wikang Pambansa 📖');add(ph,10,1,"All Saints' Day 🕯️");add(ph,10,2,"All Souls' Day 🕯️");
+  add(ph,10,30,'Bonifacio Day 🎖️');add(ph,11,8,'Immaculate Conception 🌺');add(ph,11,24,'Christmas Eve 🌟');add(ph,11,30,'Rizal Day 🎖️');
+  const by=(a,b)=>(a.day||99)-(b.day||99);
+  return{us:us.sort(by),ph:ph.sort(by)};
+}
 const AVC=['#1d6fa4','#5e35b1','#c2185b','#c97a00','#0d7c4e','#b71c1c','#00797a','#455a64'];
 const QRX=['❤️','🔥','🙌','😂','😮','👏','💪','⭐','🎉','✅','🏆','💯'];
 
@@ -460,8 +494,200 @@ let uname='',me=null,FEED=[],feedSig='',pollT=null;
 let drawOpen=false,drawCol='#222',drawSz=3,drawErase=false,drawMade=false,isDrawing=false,cvInited=false;
 let pendingImg=null;
 
+/* ── DEMO MODE ──────────────────────────────────────────────────────────
+   GitHub Pages can only host static files, so while DEMO_MODE is true the board
+   runs entirely in this browser: a FAKE login and posts saved in localStorage.
+   - Nothing is shared between people or devices.
+   - The login is NOT security. Anyone can read this page's source.
+   When the real login is ready (Vercel + Neon), set DEMO_MODE=false: the same
+   page then talks to the /api server instead. */
+const DEMO_MODE=false;
+const DEMO_PASSWORD='taxace-demo';
+const DB_KEY='tcb:demo:v1';
+const SESS_KEY='tcb:demo:session';
+const _memStore={};
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return _memStore[k]||null}}
+function lsSet(k,v){
+  try{localStorage.setItem(k,v)}
+  catch(e){
+    if(e&&(e.name==='QuotaExceededError'||e.code===22||e.code===1014))throw new Error('This browser\'s storage is full. Delete a photo post, or use "Reset demo data" in the account menu.');
+    _memStore[k]=v;
+  }
+}
+function lsDel(k){try{localStorage.removeItem(k)}catch(e){}delete _memStore[k]}
+
+function demoSeed(){
+  const now=Date.now(),d=new Date();
+  const mk=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
+  const mkM=(id,email,name,role)=>({id,email,name,role,active:true,avatar:null,lastLoginAt:null});
+  const members=[
+    mkM('m_admin','admin@taxace.demo','Demo Admin','admin'),
+    mkM('m_member','member@taxace.demo','Demo Member','member'),
+    mkM('m_sample','sample@taxace.demo','Sample Teammate','member')
+  ];
+  const posts=[
+    {id:'p_seed2',authorId:'m_admin',monthKey:mk,ts:now-3600e3,content:'Heads up: this is a preview of the Community Board. Posts, photos and drawings you add here are saved only in your own browser, so nobody else can see them yet.',img:null,draw:null,reactions:{'✅':['m_sample']},comments:[]},
+    {id:'p_seed1',authorId:'m_sample',monthKey:mk,ts:now-3*3600e3,content:'Welcome to the TaxAce Community Board! 🎉 Share a win, a photo or a drawing with the team.',img:null,draw:null,reactions:{'🎉':['m_admin','m_member'],'👏':['m_member']},comments:[{id:'c_seed1',authorId:'m_admin',content:'Great to see everyone here!',ts:now-2*3600e3}]}
+  ];
+  return{members,posts};
+}
+function dbLoad(){
+  let d=null;
+  try{d=JSON.parse(lsGet(DB_KEY)||'null')}catch(e){}
+  if(!d||!Array.isArray(d.members)||!Array.isArray(d.posts)){d=demoSeed();dbSave(d)}
+  return d;
+}
+function dbSave(d){lsSet(DB_KEY,JSON.stringify(d))}
+
+function nameFromEmail(e){
+  const n=String(e).split('@')[0].split(/[._\-+\d]+/).filter(Boolean).map(w=>w[0].toUpperCase()+w.slice(1)).join(' ');
+  return n||'Team Member';
+}
+function pubMember(m){return{id:m.id,name:m.name,email:m.email,role:m.role,avatarUrl:m.avatar||null}}
+function admMember(m){return Object.assign(pubMember(m),{active:m.active,locked:false,mfaEnabled:false,mustChangePassword:false,lastLoginAt:m.lastLoginAt||null})}
+
+function demoPostView(p,db,cur){
+  const who=id=>db.members.find(m=>m.id===id)||{name:'Former member',avatar:null};
+  const au=who(p.authorId);const reactions={},mine=[];
+  for(const em in p.reactions){const ids=p.reactions[em];if(ids.length){reactions[em]=ids.length;if(ids.includes(cur.id))mine.push(em)}}
+  return{id:p.id,author:au.name,avatarUrl:au.avatar||null,content:p.content,monthKey:p.monthKey,ts:p.ts,editedTs:p.editedTs||null,
+    imgUrl:p.img||null,drawUrl:p.draw||null,reactions,mine,
+    comments:p.comments.map(c=>{const a=who(c.authorId);return{id:c.id,author:a.name,avatarUrl:a.avatar||null,content:c.content,ts:c.ts}}),
+    canEdit:p.authorId===cur.id,canDelete:p.authorId===cur.id||cur.role==='admin'};
+}
+function demoCleanText(v,max,label){
+  const t=String(v==null?'':v).replace(/\r\n/g,'\n').trim();
+  if(t.length>max)throw demoErr(400,label+' is too long ('+max+' characters max).');
+  return t;
+}
+function demoImage(v){
+  if(v==null||v==='')return null;
+  const s=String(v);
+  if(s.length>1500000)throw demoErr(413,'That image is too large. Try a smaller photo.');
+  if(!/^data:image\/(jpeg|png);base64,[A-Za-z0-9+/]+={0,2}$/.test(s))throw demoErr(400,'Only JPEG or PNG images are supported.');
+  return s;
+}
+function demoErr(status,msg){const e=new Error(msg);e.status=status;e.data={};return e}
+
+async function demoApi(path,opts){
+  opts=opts||{};
+  const method=opts.method||'GET',body=opts.body||{};
+  const u=new URL(path,'http://demo/');
+  const parts=u.pathname.replace(/^\/+/,'').split('/').filter(Boolean);
+  const db=dbLoad();
+  const cur=db.members.find(m=>m.id===lsGet(SESS_KEY)&&m.active)||null;
+  const need=()=>{if(!cur)throw demoErr(401,'Please log in.');return cur};
+  const admin=()=>{need();if(cur.role!=='admin')throw demoErr(403,'Admins only.');return cur};
+  const route=parts.join('/');
+
+  if(route==='me'&&method==='GET')return{member:pubMember(need())};
+
+  if(route==='auth/login'&&method==='POST'){
+    const email=String(body.email||'').trim().toLowerCase(),pw=String(body.password||'');
+    if(!email||!pw)throw demoErr(400,'Enter your email and password.');
+    if(pw!==DEMO_PASSWORD)throw demoErr(401,'Incorrect email or password.');
+    let m=db.members.find(x=>x.email===email);
+    if(m&&!m.active)throw demoErr(401,'Incorrect email or password.');
+    if(!m){m={id:uid(),email,name:nameFromEmail(email),role:'member',active:true,avatar:null,lastLoginAt:null};db.members.push(m)}
+    m.lastLoginAt=Date.now();dbSave(db);lsSet(SESS_KEY,m.id);
+    return{member:pubMember(m)};
+  }
+  if(route==='auth/logout'&&method==='POST'){lsDel(SESS_KEY);return{ok:true}}
+
+  if(route==='me/avatar'){
+    need();
+    if(method==='POST')cur.avatar=demoImage(body.imageUrl);
+    else if(method==='DELETE')cur.avatar=null;
+    else throw demoErr(404,'Not found.');
+    dbSave(db);return{member:pubMember(cur)};
+  }
+
+  if(route==='posts'&&method==='GET'){
+    need();
+    const month=u.searchParams.get('month')||'';
+    if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(month))throw demoErr(400,'Invalid month.');
+    const list=db.posts.filter(p=>p.monthKey===month).sort((a,b)=>b.ts-a.ts).slice(0,200);
+    return{posts:list.map(p=>demoPostView(p,db,cur))};
+  }
+  if(route==='posts'&&method==='POST'){
+    need();
+    const content=demoCleanText(body.content,5000,'Your post');
+    const month=String(body.monthKey||'');
+    if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(month))throw demoErr(400,'Invalid month.');
+    if(!content&&!body.imgUrl&&!body.drawUrl)throw demoErr(400,'Write, draw, or add a photo first.');
+    const p={id:uid(),authorId:cur.id,monthKey:month,ts:Date.now(),content,img:demoImage(body.imgUrl),draw:demoImage(body.drawUrl),reactions:{},comments:[]};
+    db.posts.push(p);dbSave(db);return{id:p.id};
+  }
+
+  if(parts[0]==='posts'&&parts.length>=2){
+    need();
+    const p=db.posts.find(x=>x.id===parts[1]);
+    if(!p)throw demoErr(404,'That post no longer exists.');
+    if(parts.length===2&&method==='PATCH'){
+      if(p.authorId!==cur.id)throw demoErr(403,'You can only edit your own posts.');
+      const c=demoCleanText(body.content,5000,'Your post');
+      if(!c)throw demoErr(400,'Post cannot be empty.');
+      p.content=c;p.editedTs=Date.now();dbSave(db);return{ok:true};
+    }
+    if(parts.length===2&&method==='DELETE'){
+      if(p.authorId!==cur.id&&cur.role!=='admin')throw demoErr(403,'You can only delete your own posts.');
+      db.posts=db.posts.filter(x=>x!==p);dbSave(db);return{ok:true};
+    }
+    if(parts[2]==='react'&&method==='POST'){
+      const em=String(body.emoji||'');
+      if(QRX.indexOf(em)<0)throw demoErr(400,'That reaction is not available.');
+      const ids=p.reactions[em]||(p.reactions[em]=[]);
+      const i=ids.indexOf(cur.id);
+      if(i>-1)ids.splice(i,1);else ids.push(cur.id);
+      if(!ids.length)delete p.reactions[em];
+      dbSave(db);
+      const v=demoPostView(p,db,cur);return{reactions:v.reactions,mine:v.mine};
+    }
+    if(parts[2]==='comments'&&method==='POST'){
+      const c=demoCleanText(body.content,1000,'Your comment');
+      if(!c)throw demoErr(400,'Write a comment first.');
+      const cm={id:uid(),authorId:cur.id,content:c,ts:Date.now()};
+      p.comments.push(cm);dbSave(db);
+      return{comment:{id:cm.id,author:cur.name,avatarUrl:cur.avatar||null,content:c,ts:cm.ts}};
+    }
+  }
+
+  if(route==='admin/members'&&method==='GET'){admin();return{members:db.members.map(admMember)}}
+  if(route==='admin/members'&&method==='POST'){
+    admin();
+    const name=String(body.name||'').trim().slice(0,60),email=String(body.email||'').trim().toLowerCase();
+    if(!name||!email)throw demoErr(400,'Enter a name and an email.');
+    if(db.members.some(m=>m.email===email))throw demoErr(400,'That email is already on the team.');
+    const m={id:uid(),email,name,role:body.role==='admin'?'admin':'member',active:true,avatar:null,lastLoginAt:null};
+    db.members.push(m);dbSave(db);
+    return{member:pubMember(m),starterPassword:DEMO_PASSWORD};
+  }
+  if(parts[0]==='admin'&&parts[1]==='members'&&parts.length===4&&method==='POST'){
+    admin();
+    const m=db.members.find(x=>x.id===parts[2]);
+    if(!m)throw demoErr(404,'Not found.');
+    if(m.id===cur.id)throw demoErr(400,'You can\'t change your own account here.');
+    if(parts[3]==='active')m.active=!!body.active;
+    else if(parts[3]==='role')m.role=body.role==='admin'?'admin':'member';
+    else throw demoErr(404,'Not found.');
+    dbSave(db);return{ok:true};
+  }
+  throw demoErr(404,'Not found.');
+}
+
+function resetDemo(){
+  closeAcct();
+  if(!confirm('Reset the demo? This deletes every post, comment and photo saved in this browser and signs you out.'))return;
+  lsDel(DB_KEY);lsDel(SESS_KEY);location.reload();
+}
+
 /* ── API ── */
 async function api(path,opts){
+  if(!DEMO_MODE)return realApi(path,opts);
+  try{return await demoApi(path,opts)}
+  catch(e){if(e.status===401&&me)sessionEnded();throw e}
+}
+async function realApi(path,opts){
   opts=opts||{};
   const o={method:opts.method||'GET',headers:{},credentials:'same-origin'};
   if(opts.body!==undefined){o.headers['Content-Type']='application/json';o.body=JSON.stringify(opts.body)}
@@ -552,7 +778,7 @@ function applyMonth(){
 
 /* ── EVENTS ── */
 function renderEvents(){
-  const ev=EV[curMo]||{us:[],ph:[]};
+  const ev=evFor(curMo,curYr);
   function r(items,id){
     const el=document.getElementById(id);if(!el)return;
     el.innerHTML=items.length?items.map(e=>'<div class="ev-it"><span class="ev-d">'+esc(e.d)+'</span><span class="ev-n">'+flagify(e.n)+'</span></div>').join(''):'<div class="ev-no">No events this month</div>';
@@ -788,7 +1014,7 @@ function showAuth(step,msg){
       +'<label>Email<input type="email" name="email" autocomplete="username" autocapitalize="none" autocorrect="off" required></label>'
       +'<label>Password<input type="password" name="password" autocomplete="current-password" required></label>'
       +'<button class="auth-btn" type="submit">Log in</button></form>'
-      +'<div class="auth-note">Team members only. Your admin will give you a starter password.</div>';
+      +(DEMO_MODE?'<div class="demo-box"><b>Preview mode.</b> This is a demo with a fake login. Use <code>admin@taxace.demo</code> or <code>member@taxace.demo</code> (any email works) with the password <code>taxace-demo</code>. Posts are saved only in this browser.</div>':'<div class="auth-note">Team members only. Your admin will give you a starter password.</div>');
   }else if(step==='change_password'){
     t.textContent='Create your own password';
     sub.textContent='The starter password was only for your first login. Choose a new one that only you know (at least 10 characters).';
@@ -838,7 +1064,7 @@ async function authSubmit(ev,step){
   try{
     if(step==='login'){
       const d=await api('auth/login',{method:'POST',body:{email:fv(f,'email'),password:fv(f,'password')}});
-      showAuth(d.next);
+      if(d.member){me=d.member;enterBoard()}else showAuth(d.next);
     }else if(step==='change_password'){
       if(fv(f,'np')!==fv(f,'np2'))throw new Error('The two passwords do not match.');
       const d=await api('auth/password',{method:'POST',body:{newPassword:fv(f,'np')}});
@@ -925,14 +1151,18 @@ function admRow(m){
   if(m.role==='admin')b.push('<span class="badge ok">Admin</span>');
   if(!m.active)b.push('<span class="badge bad">Deactivated</span>');
   if(m.locked)b.push('<span class="badge bad">Locked (too many attempts)</span>');
-  b.push(m.mfaEnabled?'<span class="badge ok">Authenticator on</span>':'<span class="badge warn">Authenticator not set up</span>');
-  if(m.mustChangePassword)b.push('<span class="badge warn">Still on starter password</span>');
+  if(!DEMO_MODE){
+    b.push(m.mfaEnabled?'<span class="badge ok">Authenticator on</span>':'<span class="badge warn">Authenticator not set up</span>');
+    if(m.mustChangePassword)b.push('<span class="badge warn">Still on starter password</span>');
+  }
   b.push('<span class="badge">Last login: '+esc(fmtDate(m.lastLoginAt))+'</span>');
   const a=[];
   if(!self){
     const id=m.id;
-    a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\'reset-password\')">Reset password</button>');
-    a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\'reset-mfa\')">Reset authenticator</button>');
+    if(!DEMO_MODE){
+      a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\'reset-password\')">Reset password</button>');
+      a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\'reset-mfa\')">Reset authenticator</button>');
+    }
     a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\''+(m.role==='admin'?'make-member':'make-admin')+'\')">'+(m.role==='admin'?'Remove admin':'Make admin')+'</button>');
     a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\''+(m.active?'deactivate':'activate')+'\')">'+(m.active?'Deactivate':'Reactivate')+'</button>');
   }
@@ -945,7 +1175,9 @@ async function renderAdmin(note){
     let h='';
     if(note){
       lastStarter=note.pw;
-      h+='<div class="starter"><b>'+esc(note.title)+'</b><br><code>'+esc(note.pw)+'</code><button type="button" class="m-btn sm" onclick="copyStarter()">Copy</button><br>'
+      h+=DEMO_MODE
+        ?'<div class="starter"><b>'+esc(note.title)+'</b><br><small>Preview mode: there are no personal passwords yet. Everyone uses the shared demo password, and people only exist in this browser.</small></div>'
+        :'<div class="starter"><b>'+esc(note.title)+'</b><br><code>'+esc(note.pw)+'</code><button type="button" class="m-btn sm" onclick="copyStarter()">Copy</button><br>'
         +'<small>Shown only once. Send it to them privately (not in a group chat). They will choose their own password the first time they log in.</small></div>';
     }
     h+='<form class="adm-add" onsubmit="admAdd(event);return false">'
@@ -966,7 +1198,7 @@ async function admAdd(ev){
   ev.preventDefault();const f=ev.target;
   try{
     const d=await api('admin/members',{method:'POST',body:{name:fv(f,'name'),email:fv(f,'email'),role:fv(f,'role')}});
-    await renderAdmin({title:'Starter password for '+d.member.name+' ('+d.member.email+')',pw:d.starterPassword});
+    await renderAdmin({title:DEMO_MODE?d.member.name+' was added to the demo team':'Starter password for '+d.member.name+' ('+d.member.email+')',pw:d.starterPassword});
   }catch(e){const el=document.getElementById('adm-err');if(el)el.textContent=e.message}
 }
 async function admAct(id,action){
@@ -1032,6 +1264,12 @@ async function removeAvatar(){
 
 /* ── INIT ── */
 async function init(){
+  if(DEMO_MODE){
+    document.body.classList.add('demo');
+    const r=document.getElementById('am-reset');if(r)r.style.display='block';
+    const s=document.querySelector('.hdr-s');if(s)s.textContent='TaxAce Business Solutions · Preview';
+    document.title='TaxAce Community Board (Preview)';
+  }
   applyMonth();
   try{
     const d=await api('me');
