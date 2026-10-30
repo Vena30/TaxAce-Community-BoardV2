@@ -3,8 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data: blob:; style-src 'unsafe-inline'; script-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <title>TaxAce Community Board</title>
 <style>
 :root{
@@ -217,11 +215,11 @@ body.locked .wrap,body.locked .tstrip{visibility:hidden}
 .pf-sv.alt{background:var(--sf);color:var(--tx);border:1.5px solid var(--ln)}
 .pf-sv.alt:hover{border-color:var(--ac);color:var(--ac);background:var(--sf)}
 
-.auth-ov{position:fixed;inset:0;z-index:1000;display:flex;align-items:flex-start;justify-content:center;padding:max(20px,env(safe-area-inset-top,0px)) 20px 20px;background:var(--bn);overflow:auto}
+.auth-ov{position:fixed;inset:0;z-index:1000;display:flex;align-items:flex-start;justify-content:center;padding:max(20px,env(safe-area-inset-top,0px)) 20px 20px;overflow:auto}
 .auth-card{width:100%;max-width:400px;margin:auto 0;background:var(--cd);color:var(--tx);border-radius:18px;padding:26px 26px 22px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
 .auth-logo-wrap{display:flex;justify-content:center;margin-bottom:16px}
-.auth-logo-wrap span{background:#fff;border-radius:12px;padding:7px 14px;box-shadow:0 1px 6px rgba(0,0,0,.18)}
-.auth-logo{display:block;height:44px;width:auto}
+
+.auth-logo{display:block;height:52px;width:auto}
 .auth-card h2{font-size:20px;font-weight:800;text-align:center;margin:0 0 6px;letter-spacing:-.2px}
 .auth-sub{font-size:13px;color:var(--sb);text-align:center;line-height:1.5;margin-bottom:16px}
 .auth-card label,.m-card label{display:block;font-size:12px;font-weight:600;color:var(--sb);margin:0 0 12px}
@@ -273,10 +271,22 @@ body.locked .wrap,body.locked .tstrip{visibility:hidden}
 .pf-cam{position:absolute;right:-4px;bottom:-2px;width:26px;height:26px;border-radius:50%;border:2px solid var(--cd);background:var(--ac);color:#fff;font-size:12px;line-height:1;display:flex;align-items:center;justify-content:center;transition:background .2s}
 .pf-cam:hover{background:var(--ach)}
 
-/* Demo mode */
-.demo-box{background:rgba(217,138,0,.12);border:1.5px solid #d98a00;border-radius:10px;padding:10px 12px;margin-top:14px;font-size:12px;line-height:1.55;color:var(--tx)}
-.demo-box code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;background:var(--sf);border:1px solid var(--ln);border-radius:5px;padding:1px 5px;user-select:all}
-body.demo .real-only{display:none!important}
+/* Login screens: a fixed white theme that matches the TaxAce logo (they don't follow the monthly theme) */
+.auth-ov{--cd:#ffffff;--tx:#2b2f36;--sb:#5f6b73;--ln:#d5dfde;--sf:#f4f8f8;--ac:#007F6D;--ach:#006B5C;
+  background:radial-gradient(1100px 540px at 50% -10%,#dff4ef 0%,rgba(223,244,239,0) 70%),#ffffff}
+.auth-card{border:1px solid #e1ebe9;box-shadow:0 12px 40px rgba(16,70,62,.10),0 2px 6px rgba(16,70,62,.06)}
+.auth-card input:focus{border-color:#00A890;box-shadow:0 0 0 3px rgba(0,168,144,.18)}
+.auth-card .auth-err{color:#c62828}
+
+/* Flags drawn as pictures (Windows can't display flag emoji; it shows the letters "US"/"PH") */
+.flag{display:inline-block;height:1em;border-radius:2px;background-size:100% 100%;background-repeat:no-repeat;vertical-align:-.14em;box-shadow:0 0 0 1px rgba(0,0,0,.22),0 1px 3px rgba(0,0,0,.22)}
+.flag-us{width:1.9em;background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCB3aWR0aD0iMTkwIiBoZWlnaHQ9IjEwMCIgZmlsbD0iI2ZmZiIvPjxyZWN0IHk9IjAuMDAwIiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjcuNzEyIiBmaWxsPSIjQjIyMjM0Ii8+PHJlY3QgeT0iMTUuMzg1IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjcuNzEyIiBmaWxsPSIjQjIyMjM0Ii8+PHJlY3QgeT0iMzAuNzY5IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjcuNzEyIiBmaWxsPSIjQjIyMjM0Ii8+PHJlY3QgeT0iNDYuMTU0IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjcuNzEyIiBmaWxsPSIjQjIyMjM0Ii8+PHJlY3QgeT0iNjEuNTM4IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjcuNzEyIiBmaWxsPSIjQjIyMjM0Ii8+PHJlY3QgeT0iNzYuOTIzIiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjcuNzEyIiBmaWxsPSIjQjIyMjM0Ii8+PHJlY3QgeT0iOTIuMzA4IiB3aWR0aD0iMTkwIiBoZWlnaHQ9IjcuNzEyIiBmaWxsPSIjQjIyMjM0Ii8+PHJlY3Qgd2lkdGg9Ijc2IiBoZWlnaHQ9IjUzLjg0NiIgZmlsbD0iIzNDM0I2RSIvPjxwb2x5Z29uIHBvaW50cz0iNi4zMywyLjM4IDcuMDQsNC40MSA5LjE5LDQuNDYgNy40Nyw1Ljc2IDguMTAsNy44MSA2LjMzLDYuNTggNC41Nyw3LjgxIDUuMTksNS43NiAzLjQ4LDQuNDYgNS42Myw0LjQxIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSIxOS4wMCwyLjM4IDE5LjcxLDQuNDEgMjEuODUsNC40NiAyMC4xNCw1Ljc2IDIwLjc2LDcuODEgMTkuMDAsNi41OCAxNy4yNCw3LjgxIDE3Ljg2LDUuNzYgMTYuMTUsNC40NiAxOC4yOSw0LjQxIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSIzMS42NywyLjM4IDMyLjM3LDQuNDEgMzQuNTIsNC40NiAzMi44MSw1Ljc2IDMzLjQzLDcuODEgMzEuNjcsNi41OCAyOS45MCw3LjgxIDMwLjUzLDUuNzYgMjguODEsNC40NiAzMC45Niw0LjQxIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSI0NC4zMywyLjM4IDQ1LjA0LDQuNDEgNDcuMTksNC40NiA0NS40Nyw1Ljc2IDQ2LjEwLDcuODEgNDQuMzMsNi41OCA0Mi41Nyw3LjgxIDQzLjE5LDUuNzYgNDEuNDgsNC40NiA0My42Myw0LjQxIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSI1Ny4wMCwyLjM4IDU3LjcxLDQuNDEgNTkuODUsNC40NiA1OC4xNCw1Ljc2IDU4Ljc2LDcuODEgNTcuMDAsNi41OCA1NS4yNCw3LjgxIDU1Ljg2LDUuNzYgNTQuMTUsNC40NiA1Ni4yOSw0LjQxIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSI2OS42NywyLjM4IDcwLjM3LDQuNDEgNzIuNTIsNC40NiA3MC44MSw1Ljc2IDcxLjQzLDcuODEgNjkuNjcsNi41OCA2Ny45MCw3LjgxIDY4LjUzLDUuNzYgNjYuODEsNC40NiA2OC45Niw0LjQxIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSIxMi42Nyw3Ljc3IDEzLjM3LDkuODAgMTUuNTIsOS44NCAxMy44MSwxMS4xNCAxNC40MywxMy4yMCAxMi42NywxMS45NyAxMC45MCwxMy4yMCAxMS41MywxMS4xNCA5LjgxLDkuODQgMTEuOTYsOS44MCIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iMjUuMzMsNy43NyAyNi4wNCw5LjgwIDI4LjE5LDkuODQgMjYuNDcsMTEuMTQgMjcuMTAsMTMuMjAgMjUuMzMsMTEuOTcgMjMuNTcsMTMuMjAgMjQuMTksMTEuMTQgMjIuNDgsOS44NCAyNC42Myw5LjgwIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSIzOC4wMCw3Ljc3IDM4LjcxLDkuODAgNDAuODUsOS44NCAzOS4xNCwxMS4xNCAzOS43NiwxMy4yMCAzOC4wMCwxMS45NyAzNi4yNCwxMy4yMCAzNi44NiwxMS4xNCAzNS4xNSw5Ljg0IDM3LjI5LDkuODAiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjUwLjY3LDcuNzcgNTEuMzcsOS44MCA1My41Miw5Ljg0IDUxLjgxLDExLjE0IDUyLjQzLDEzLjIwIDUwLjY3LDExLjk3IDQ4LjkwLDEzLjIwIDQ5LjUzLDExLjE0IDQ3LjgxLDkuODQgNDkuOTYsOS44MCIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iNjMuMzMsNy43NyA2NC4wNCw5LjgwIDY2LjE5LDkuODQgNjQuNDcsMTEuMTQgNjUuMTAsMTMuMjAgNjMuMzMsMTEuOTcgNjEuNTcsMTMuMjAgNjIuMTksMTEuMTQgNjAuNDgsOS44NCA2Mi42Myw5LjgwIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSI2LjMzLDEzLjE1IDcuMDQsMTUuMTggOS4xOSwxNS4yMyA3LjQ3LDE2LjUyIDguMTAsMTguNTggNi4zMywxNy4zNSA0LjU3LDE4LjU4IDUuMTksMTYuNTIgMy40OCwxNS4yMyA1LjYzLDE1LjE4IiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSIxOS4wMCwxMy4xNSAxOS43MSwxNS4xOCAyMS44NSwxNS4yMyAyMC4xNCwxNi41MiAyMC43NiwxOC41OCAxOS4wMCwxNy4zNSAxNy4yNCwxOC41OCAxNy44NiwxNi41MiAxNi4xNSwxNS4yMyAxOC4yOSwxNS4xOCIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iMzEuNjcsMTMuMTUgMzIuMzcsMTUuMTggMzQuNTIsMTUuMjMgMzIuODEsMTYuNTIgMzMuNDMsMTguNTggMzEuNjcsMTcuMzUgMjkuOTAsMTguNTggMzAuNTMsMTYuNTIgMjguODEsMTUuMjMgMzAuOTYsMTUuMTgiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjQ0LjMzLDEzLjE1IDQ1LjA0LDE1LjE4IDQ3LjE5LDE1LjIzIDQ1LjQ3LDE2LjUyIDQ2LjEwLDE4LjU4IDQ0LjMzLDE3LjM1IDQyLjU3LDE4LjU4IDQzLjE5LDE2LjUyIDQxLjQ4LDE1LjIzIDQzLjYzLDE1LjE4IiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSI1Ny4wMCwxMy4xNSA1Ny43MSwxNS4xOCA1OS44NSwxNS4yMyA1OC4xNCwxNi41MiA1OC43NiwxOC41OCA1Ny4wMCwxNy4zNSA1NS4yNCwxOC41OCA1NS44NiwxNi41MiA1NC4xNSwxNS4yMyA1Ni4yOSwxNS4xOCIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iNjkuNjcsMTMuMTUgNzAuMzcsMTUuMTggNzIuNTIsMTUuMjMgNzAuODEsMTYuNTIgNzEuNDMsMTguNTggNjkuNjcsMTcuMzUgNjcuOTAsMTguNTggNjguNTMsMTYuNTIgNjYuODEsMTUuMjMgNjguOTYsMTUuMTgiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjEyLjY3LDE4LjU0IDEzLjM3LDIwLjU3IDE1LjUyLDIwLjYxIDEzLjgxLDIxLjkxIDE0LjQzLDIzLjk3IDEyLjY3LDIyLjc0IDEwLjkwLDIzLjk3IDExLjUzLDIxLjkxIDkuODEsMjAuNjEgMTEuOTYsMjAuNTciIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjI1LjMzLDE4LjU0IDI2LjA0LDIwLjU3IDI4LjE5LDIwLjYxIDI2LjQ3LDIxLjkxIDI3LjEwLDIzLjk3IDI1LjMzLDIyLjc0IDIzLjU3LDIzLjk3IDI0LjE5LDIxLjkxIDIyLjQ4LDIwLjYxIDI0LjYzLDIwLjU3IiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSIzOC4wMCwxOC41NCAzOC43MSwyMC41NyA0MC44NSwyMC42MSAzOS4xNCwyMS45MSAzOS43NiwyMy45NyAzOC4wMCwyMi43NCAzNi4yNCwyMy45NyAzNi44NiwyMS45MSAzNS4xNSwyMC42MSAzNy4yOSwyMC41NyIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iNTAuNjcsMTguNTQgNTEuMzcsMjAuNTcgNTMuNTIsMjAuNjEgNTEuODEsMjEuOTEgNTIuNDMsMjMuOTcgNTAuNjcsMjIuNzQgNDguOTAsMjMuOTcgNDkuNTMsMjEuOTEgNDcuODEsMjAuNjEgNDkuOTYsMjAuNTciIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjYzLjMzLDE4LjU0IDY0LjA0LDIwLjU3IDY2LjE5LDIwLjYxIDY0LjQ3LDIxLjkxIDY1LjEwLDIzLjk3IDYzLjMzLDIyLjc0IDYxLjU3LDIzLjk3IDYyLjE5LDIxLjkxIDYwLjQ4LDIwLjYxIDYyLjYzLDIwLjU3IiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSI2LjMzLDIzLjkyIDcuMDQsMjUuOTUgOS4xOSwyNi4wMCA3LjQ3LDI3LjI5IDguMTAsMjkuMzUgNi4zMywyOC4xMiA0LjU3LDI5LjM1IDUuMTksMjcuMjkgMy40OCwyNi4wMCA1LjYzLDI1Ljk1IiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSIxOS4wMCwyMy45MiAxOS43MSwyNS45NSAyMS44NSwyNi4wMCAyMC4xNCwyNy4yOSAyMC43NiwyOS4zNSAxOS4wMCwyOC4xMiAxNy4yNCwyOS4zNSAxNy44NiwyNy4yOSAxNi4xNSwyNi4wMCAxOC4yOSwyNS45NSIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iMzEuNjcsMjMuOTIgMzIuMzcsMjUuOTUgMzQuNTIsMjYuMDAgMzIuODEsMjcuMjkgMzMuNDMsMjkuMzUgMzEuNjcsMjguMTIgMjkuOTAsMjkuMzUgMzAuNTMsMjcuMjkgMjguODEsMjYuMDAgMzAuOTYsMjUuOTUiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjQ0LjMzLDIzLjkyIDQ1LjA0LDI1Ljk1IDQ3LjE5LDI2LjAwIDQ1LjQ3LDI3LjI5IDQ2LjEwLDI5LjM1IDQ0LjMzLDI4LjEyIDQyLjU3LDI5LjM1IDQzLjE5LDI3LjI5IDQxLjQ4LDI2LjAwIDQzLjYzLDI1Ljk1IiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSI1Ny4wMCwyMy45MiA1Ny43MSwyNS45NSA1OS44NSwyNi4wMCA1OC4xNCwyNy4yOSA1OC43NiwyOS4zNSA1Ny4wMCwyOC4xMiA1NS4yNCwyOS4zNSA1NS44NiwyNy4yOSA1NC4xNSwyNi4wMCA1Ni4yOSwyNS45NSIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iNjkuNjcsMjMuOTIgNzAuMzcsMjUuOTUgNzIuNTIsMjYuMDAgNzAuODEsMjcuMjkgNzEuNDMsMjkuMzUgNjkuNjcsMjguMTIgNjcuOTAsMjkuMzUgNjguNTMsMjcuMjkgNjYuODEsMjYuMDAgNjguOTYsMjUuOTUiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjEyLjY3LDI5LjMxIDEzLjM3LDMxLjM0IDE1LjUyLDMxLjM4IDEzLjgxLDMyLjY4IDE0LjQzLDM0LjczIDEyLjY3LDMzLjUxIDEwLjkwLDM0LjczIDExLjUzLDMyLjY4IDkuODEsMzEuMzggMTEuOTYsMzEuMzQiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjI1LjMzLDI5LjMxIDI2LjA0LDMxLjM0IDI4LjE5LDMxLjM4IDI2LjQ3LDMyLjY4IDI3LjEwLDM0LjczIDI1LjMzLDMzLjUxIDIzLjU3LDM0LjczIDI0LjE5LDMyLjY4IDIyLjQ4LDMxLjM4IDI0LjYzLDMxLjM0IiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSIzOC4wMCwyOS4zMSAzOC43MSwzMS4zNCA0MC44NSwzMS4zOCAzOS4xNCwzMi42OCAzOS43NiwzNC43MyAzOC4wMCwzMy41MSAzNi4yNCwzNC43MyAzNi44NiwzMi42OCAzNS4xNSwzMS4zOCAzNy4yOSwzMS4zNCIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iNTAuNjcsMjkuMzEgNTEuMzcsMzEuMzQgNTMuNTIsMzEuMzggNTEuODEsMzIuNjggNTIuNDMsMzQuNzMgNTAuNjcsMzMuNTEgNDguOTAsMzQuNzMgNDkuNTMsMzIuNjggNDcuODEsMzEuMzggNDkuOTYsMzEuMzQiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjYzLjMzLDI5LjMxIDY0LjA0LDMxLjM0IDY2LjE5LDMxLjM4IDY0LjQ3LDMyLjY4IDY1LjEwLDM0LjczIDYzLjMzLDMzLjUxIDYxLjU3LDM0LjczIDYyLjE5LDMyLjY4IDYwLjQ4LDMxLjM4IDYyLjYzLDMxLjM0IiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSI2LjMzLDM0LjY5IDcuMDQsMzYuNzIgOS4xOSwzNi43NyA3LjQ3LDM4LjA2IDguMTAsNDAuMTIgNi4zMywzOC44OSA0LjU3LDQwLjEyIDUuMTksMzguMDYgMy40OCwzNi43NyA1LjYzLDM2LjcyIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSIxOS4wMCwzNC42OSAxOS43MSwzNi43MiAyMS44NSwzNi43NyAyMC4xNCwzOC4wNiAyMC43Niw0MC4xMiAxOS4wMCwzOC44OSAxNy4yNCw0MC4xMiAxNy44NiwzOC4wNiAxNi4xNSwzNi43NyAxOC4yOSwzNi43MiIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iMzEuNjcsMzQuNjkgMzIuMzcsMzYuNzIgMzQuNTIsMzYuNzcgMzIuODEsMzguMDYgMzMuNDMsNDAuMTIgMzEuNjcsMzguODkgMjkuOTAsNDAuMTIgMzAuNTMsMzguMDYgMjguODEsMzYuNzcgMzAuOTYsMzYuNzIiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjQ0LjMzLDM0LjY5IDQ1LjA0LDM2LjcyIDQ3LjE5LDM2Ljc3IDQ1LjQ3LDM4LjA2IDQ2LjEwLDQwLjEyIDQ0LjMzLDM4Ljg5IDQyLjU3LDQwLjEyIDQzLjE5LDM4LjA2IDQxLjQ4LDM2Ljc3IDQzLjYzLDM2LjcyIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSI1Ny4wMCwzNC42OSA1Ny43MSwzNi43MiA1OS44NSwzNi43NyA1OC4xNCwzOC4wNiA1OC43Niw0MC4xMiA1Ny4wMCwzOC44OSA1NS4yNCw0MC4xMiA1NS44NiwzOC4wNiA1NC4xNSwzNi43NyA1Ni4yOSwzNi43MiIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iNjkuNjcsMzQuNjkgNzAuMzcsMzYuNzIgNzIuNTIsMzYuNzcgNzAuODEsMzguMDYgNzEuNDMsNDAuMTIgNjkuNjcsMzguODkgNjcuOTAsNDAuMTIgNjguNTMsMzguMDYgNjYuODEsMzYuNzcgNjguOTYsMzYuNzIiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjEyLjY3LDQwLjA4IDEzLjM3LDQyLjExIDE1LjUyLDQyLjE1IDEzLjgxLDQzLjQ1IDE0LjQzLDQ1LjUwIDEyLjY3LDQ0LjI4IDEwLjkwLDQ1LjUwIDExLjUzLDQzLjQ1IDkuODEsNDIuMTUgMTEuOTYsNDIuMTEiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjI1LjMzLDQwLjA4IDI2LjA0LDQyLjExIDI4LjE5LDQyLjE1IDI2LjQ3LDQzLjQ1IDI3LjEwLDQ1LjUwIDI1LjMzLDQ0LjI4IDIzLjU3LDQ1LjUwIDI0LjE5LDQzLjQ1IDIyLjQ4LDQyLjE1IDI0LjYzLDQyLjExIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSIzOC4wMCw0MC4wOCAzOC43MSw0Mi4xMSA0MC44NSw0Mi4xNSAzOS4xNCw0My40NSAzOS43Niw0NS41MCAzOC4wMCw0NC4yOCAzNi4yNCw0NS41MCAzNi44Niw0My40NSAzNS4xNSw0Mi4xNSAzNy4yOSw0Mi4xMSIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iNTAuNjcsNDAuMDggNTEuMzcsNDIuMTEgNTMuNTIsNDIuMTUgNTEuODEsNDMuNDUgNTIuNDMsNDUuNTAgNTAuNjcsNDQuMjggNDguOTAsNDUuNTAgNDkuNTMsNDMuNDUgNDcuODEsNDIuMTUgNDkuOTYsNDIuMTEiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjYzLjMzLDQwLjA4IDY0LjA0LDQyLjExIDY2LjE5LDQyLjE1IDY0LjQ3LDQzLjQ1IDY1LjEwLDQ1LjUwIDYzLjMzLDQ0LjI4IDYxLjU3LDQ1LjUwIDYyLjE5LDQzLjQ1IDYwLjQ4LDQyLjE1IDYyLjYzLDQyLjExIiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSI2LjMzLDQ1LjQ2IDcuMDQsNDcuNDkgOS4xOSw0Ny41MyA3LjQ3LDQ4LjgzIDguMTAsNTAuODkgNi4zMyw0OS42NiA0LjU3LDUwLjg5IDUuMTksNDguODMgMy40OCw0Ny41MyA1LjYzLDQ3LjQ5IiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSIxOS4wMCw0NS40NiAxOS43MSw0Ny40OSAyMS44NSw0Ny41MyAyMC4xNCw0OC44MyAyMC43Niw1MC44OSAxOS4wMCw0OS42NiAxNy4yNCw1MC44OSAxNy44Niw0OC44MyAxNi4xNSw0Ny41MyAxOC4yOSw0Ny40OSIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iMzEuNjcsNDUuNDYgMzIuMzcsNDcuNDkgMzQuNTIsNDcuNTMgMzIuODEsNDguODMgMzMuNDMsNTAuODkgMzEuNjcsNDkuNjYgMjkuOTAsNTAuODkgMzAuNTMsNDguODMgMjguODEsNDcuNTMgMzAuOTYsNDcuNDkiIGZpbGw9IiNmZmYiLz48cG9seWdvbiBwb2ludHM9IjQ0LjMzLDQ1LjQ2IDQ1LjA0LDQ3LjQ5IDQ3LjE5LDQ3LjUzIDQ1LjQ3LDQ4LjgzIDQ2LjEwLDUwLjg5IDQ0LjMzLDQ5LjY2IDQyLjU3LDUwLjg5IDQzLjE5LDQ4LjgzIDQxLjQ4LDQ3LjUzIDQzLjYzLDQ3LjQ5IiBmaWxsPSIjZmZmIi8+PHBvbHlnb24gcG9pbnRzPSI1Ny4wMCw0NS40NiA1Ny43MSw0Ny40OSA1OS44NSw0Ny41MyA1OC4xNCw0OC44MyA1OC43Niw1MC44OSA1Ny4wMCw0OS42NiA1NS4yNCw1MC44OSA1NS44Niw0OC44MyA1NC4xNSw0Ny41MyA1Ni4yOSw0Ny40OSIgZmlsbD0iI2ZmZiIvPjxwb2x5Z29uIHBvaW50cz0iNjkuNjcsNDUuNDYgNzAuMzcsNDcuNDkgNzIuNTIsNDcuNTMgNzAuODEsNDguODMgNzEuNDMsNTAuODkgNjkuNjcsNDkuNjYgNjcuOTAsNTAuODkgNjguNTMsNDguODMgNjYuODEsNDcuNTMgNjguOTYsNDcuNDkiIGZpbGw9IiNmZmYiLz48L3N2Zz4=)}
+.flag-ph{width:2em;background-image:url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjUwIiBmaWxsPSIjMDAzOEE4Ii8+PHJlY3QgeT0iNTAiIHdpZHRoPSIyMDAiIGhlaWdodD0iNTAiIGZpbGw9IiNDRTExMjYiLz48cG9seWdvbiBwb2ludHM9IjAsMCAwLDEwMCA4Ni42LDUwIiBmaWxsPSIjZmZmIi8+PGNpcmNsZSBjeD0iMjkiIGN5PSI1MCIgcj0iOS41IiBmaWxsPSIjRkNEMTE2Ii8+PGxpbmUgeDE9IjQxLjUwIiB5MT0iNTAuMDAiIHgyPSI1MS4wMCIgeTI9IjUwLjAwIiBzdHJva2U9IiNGQ0QxMTYiIHN0cm9rZS13aWR0aD0iMy4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMzcuODQiIHkxPSI1OC44NCIgeDI9IjQ0LjU2IiB5Mj0iNjUuNTYiIHN0cm9rZT0iI0ZDRDExNiIgc3Ryb2tlLXdpZHRoPSIzLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxsaW5lIHgxPSIyOS4wMCIgeTE9IjYyLjUwIiB4Mj0iMjkuMDAiIHkyPSI3Mi4wMCIgc3Ryb2tlPSIjRkNEMTE2IiBzdHJva2Utd2lkdGg9IjMuMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGxpbmUgeDE9IjIwLjE2IiB5MT0iNTguODQiIHgyPSIxMy40NCIgeTI9IjY1LjU2IiBzdHJva2U9IiNGQ0QxMTYiIHN0cm9rZS13aWR0aD0iMy4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMTYuNTAiIHkxPSI1MC4wMCIgeDI9IjcuMDAiIHkyPSI1MC4wMCIgc3Ryb2tlPSIjRkNEMTE2IiBzdHJva2Utd2lkdGg9IjMuMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PGxpbmUgeDE9IjIwLjE2IiB5MT0iNDEuMTYiIHgyPSIxMy40NCIgeTI9IjM0LjQ0IiBzdHJva2U9IiNGQ0QxMTYiIHN0cm9rZS13aWR0aD0iMy4yIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMjkuMDAiIHkxPSIzNy41MCIgeDI9IjI5LjAwIiB5Mj0iMjguMDAiIHN0cm9rZT0iI0ZDRDExNiIgc3Ryb2tlLXdpZHRoPSIzLjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxsaW5lIHgxPSIzNy44NCIgeTE9IjQxLjE2IiB4Mj0iNDQuNTYiIHkyPSIzNC40NCIgc3Ryb2tlPSIjRkNEMTE2IiBzdHJva2Utd2lkdGg9IjMuMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBvbHlnb24gcG9pbnRzPSI5LjAwLDUuMDAgMTAuNzAsOS42NSAxNS42Niw5Ljg0IDExLjc2LDEyLjkwIDEzLjExLDE3LjY2IDkuMDAsMTQuOTAgNC44OSwxNy42NiA2LjI0LDEyLjkwIDIuMzQsOS44NCA3LjMwLDkuNjUiIGZpbGw9IiNGQ0QxMTYiLz48cG9seWdvbiBwb2ludHM9IjkuMDAsODEuMDAgMTAuNzAsODUuNjUgMTUuNjYsODUuODQgMTEuNzYsODguOTAgMTMuMTEsOTMuNjYgOS4wMCw5MC45MCA0Ljg5LDkzLjY2IDYuMjQsODguOTAgMi4zNCw4NS44NCA3LjMwLDg1LjY1IiBmaWxsPSIjRkNEMTE2Ii8+PHBvbHlnb24gcG9pbnRzPSI3NC4wMCw0My4wMCA3NS43MCw0Ny42NSA4MC42Niw0Ny44NCA3Ni43Niw1MC45MCA3OC4xMSw1NS42NiA3NC4wMCw1Mi45MCA2OS44OSw1NS42NiA3MS4yNCw1MC45MCA2Ny4zNCw0Ny44NCA3Mi4zMCw0Ny42NSIgZmlsbD0iI0ZDRDExNiIvPjwvc3ZnPg==)}
+.bn-flags{display:flex;align-items:center;gap:10px;letter-spacing:0}
+.bn-flags .flag{font-size:26px}
+.ev-h .flag{font-size:12px}
+.tstrip-em .flag{font-size:12px;vertical-align:-.12em}
+.df .flag{box-shadow:none}
 </style>
 </head>
 <body class="locked">
@@ -304,9 +314,8 @@ body.demo .real-only{display:none!important}
       <div class="am-who"><strong id="am-nm"></strong><span id="am-em"></span></div>
       <button onclick="pickAvatar()">📷 Change profile photo</button>
       <button id="am-rmav" onclick="removeAvatar()" style="display:none">🖼️ Remove profile photo</button>
-      <button class="real-only" onclick="openPwModal()">🔑 Change password</button>
+      <button onclick="openPwModal()">🔑 Change password</button>
       <button id="am-admin" onclick="openAdmin()" style="display:none">👥 Manage team</button>
-      <button class="demo-only" id="am-reset" onclick="resetDemo()" style="display:none">♻️ Reset demo data</button>
       <button onclick="logout()">🚪 Log out</button>
     </div>
   </div>
@@ -324,13 +333,13 @@ body.demo .real-only{display:none!important}
       <div class="pf-av-wrap"><div class="pf-av" id="pf-av">?</div><button class="pf-cam" onclick="pickAvatar()" title="Change profile photo" aria-label="Change profile photo">📷</button></div>
       <div><div class="pf-nm" id="pf-nm">Team Member</div><div class="pf-ro" id="pf-ro">TaxAce Team</div></div>
       <div class="pf-em" id="pf-em"></div>
-      <button class="pf-sv alt real-only" onclick="openPwModal()">Change password</button>
+      <button class="pf-sv alt" onclick="openPwModal()">Change password</button>
       <button class="pf-sv alt" id="sb-admin" onclick="openAdmin()" style="display:none">Manage team</button>
       <button class="pf-sv alt" onclick="logout()">Log out</button>
     </div>
     <div class="card ec">
-      <div class="ev-s"><div class="ev-h">&#127482;&#127480; US Events</div><div id="us-ev"></div></div>
-      <div class="ev-s"><div class="ev-h">&#127477;&#127469; PH Events</div><div id="ph-ev"></div></div>
+      <div class="ev-s"><div class="ev-h"><span class="flag flag-us" role="img" aria-label="US flag"></span> US Events</div><div id="us-ev"></div></div>
+      <div class="ev-s"><div class="ev-h"><span class="flag flag-ph" role="img" aria-label="Philippine flag"></span> PH Events</div><div id="ph-ev"></div></div>
     </div>
   </aside>
 
@@ -340,7 +349,7 @@ body.demo .real-only{display:none!important}
         <h2 id="bn-mo">Loading&hellip;</h2>
         <p>Share updates &middot; Celebrate wins &middot; Connect with the team &#127882;</p>
       </div>
-      <div class="bn-flags">&#127482;&#127480;&#127477;&#127469;</div>
+      <div class="bn-flags"><span class="flag flag-us" role="img" aria-label="US flag"></span><span class="flag flag-ph" role="img" aria-label="Philippine flag"></span></div>
     </div>
 
     <div class="card creator">
@@ -428,47 +437,20 @@ const T={
 /* ── DATA ── */
 const MO=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const MO_EM=['🎆','💝','🍀','🌸','🌺','🌈','🇺🇸','☀️','🍂','🎃','🦃','🎄'];
-const MO3=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-/* nth weekday of a month (dow 0=Sun..6=Sat; n=1..4, or -1 for the last one) */
-function nthDow(y,m,dow,n){
-  if(n>0){const first=new Date(y,m,1).getDay();return 1+((dow-first+7)%7)+(n-1)*7}
-  const last=new Date(y,m+1,0);return last.getDate()-((last.getDay()-dow+7)%7);
-}
-function easterDate(y){
-  const a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25),g=Math.floor((b-f+1)/3),
-    h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4,l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451),
-    mo=Math.floor((h+l-7*m+114)/31),da=((h+l-7*m+114)%31)+1;
-  return new Date(y,mo-1,da);
-}
-const CNY={2025:[0,29],2026:[1,17],2027:[1,6],2028:[0,26],2029:[1,13],2030:[1,3]};
-/* Holidays for one month of one year. Dates that move (Thanksgiving, Easter...) are worked out, not typed in. */
-function evFor(mo,yr){
-  const us=[],ph=[];
-  const add=(arr,m,day,n)=>{if(m===mo)arr.push({day:day,d:day?MO3[m]+' '+day:MO3[m],n:n})};
-  const both=(m,day,n)=>{add(us,m,day,n);add(ph,m,day,n)};
-  const ea=easterDate(yr),off=x=>new Date(yr,ea.getMonth(),ea.getDate()+x);
-  const gf=off(-2),ht=off(-3);
-  const mothers=nthDow(yr,4,0,2),fathers=nthDow(yr,5,0,3);
-  // both countries
-  both(0,1,"New Year's Day 🎆");both(1,14,"Valentine's Day 💝");both(2,8,"Women's Day 💜");
-  both(gf.getMonth(),gf.getDate(),'Good Friday 🙏');both(ea.getMonth(),ea.getDate(),'Easter 🌸');
-  both(4,mothers,"Mother's Day 💐");both(5,fathers,"Father's Day 👔");both(11,25,'Christmas 🎄');both(11,31,"New Year's Eve 🎆");
-  // US
-  add(us,0,nthDow(yr,0,1,3),'MLK Jr. Day ✊');add(us,1,nthDow(yr,1,1,3),"Presidents' Day 🇺🇸");add(us,2,17,"St. Patrick's Day 🍀");
-  add(us,3,15,'Tax Day 📋');add(us,4,nthDow(yr,4,1,-1),'Memorial Day 🪖');add(us,5,19,'Juneteenth 🗽');
-  add(us,6,4,'Independence Day 🎆');add(us,7,null,'Back to School 📚');add(us,8,nthDow(yr,8,1,1),'Labor Day 👷');
-  add(us,8,11,'Patriot Day 🕯️');add(us,9,nthDow(yr,9,1,2),'Columbus Day 🧭');add(us,9,31,'Halloween 🎃');
-  add(us,10,11,'Veterans Day 🎖️');add(us,10,nthDow(yr,10,4,4),'Thanksgiving 🦃');
-  // Philippines
-  if(CNY[yr])add(ph,CNY[yr][0],CNY[yr][1],'Chinese New Year 🧧');
-  add(ph,1,25,'EDSA Anniversary 🕊️');add(ph,3,9,'Araw ng Kagitingan 🎖️');add(ph,ht.getMonth(),ht.getDate(),'Holy Thursday 🙏');
-  add(ph,4,1,'Labor Day 👷');add(ph,5,12,'Independence Day 🎉');add(ph,6,4,'Fil-American Friendship Day 🤝');
-  add(ph,7,21,'Ninoy Aquino Day 🕊️');add(ph,7,nthDow(yr,7,1,-1),'National Heroes Day 🎖️');
-  add(ph,8,null,'Buwan ng Wikang Pambansa 📖');add(ph,10,1,"All Saints' Day 🕯️");add(ph,10,2,"All Souls' Day 🕯️");
-  add(ph,10,30,'Bonifacio Day 🎖️');add(ph,11,8,'Immaculate Conception 🌺');add(ph,11,24,'Christmas Eve 🌟');add(ph,11,30,'Rizal Day 🎖️');
-  const by=(a,b)=>(a.day||99)-(b.day||99);
-  return{us:us.sort(by),ph:ph.sort(by)};
-}
+const EV={
+  0:{us:[{d:'Jan 1',n:'New Year\'s Day 🎆'},{d:'Jan 20',n:'MLK Jr. Day ✊'}],ph:[{d:'Jan 1',n:'New Year\'s Day 🎆'},{d:'Jan 29',n:'Chinese New Year 🧧'}]},
+  1:{us:[{d:'Feb 14',n:'Valentine\'s Day 💝'},{d:'Feb 17',n:'Presidents\' Day 🇺🇸'}],ph:[{d:'Feb 14',n:'Valentine\'s Day 💝'},{d:'Feb 25',n:'EDSA Anniversary 🕊️'}]},
+  2:{us:[{d:'Mar 8',n:'Women\'s Day 💜'},{d:'Mar 17',n:'St. Patrick\'s Day 🍀'}],ph:[{d:'Mar 8',n:'Women\'s Day 💜'}]},
+  3:{us:[{d:'Apr 15',n:'Tax Day 📋'},{d:'Apr 18',n:'Good Friday 🙏'},{d:'Apr 20',n:'Easter 🌸'}],ph:[{d:'Apr 9',n:'Araw ng Kagitingan 🎖️'},{d:'Apr 17',n:'Holy Thursday 🙏'},{d:'Apr 18',n:'Good Friday 🙏'},{d:'Apr 20',n:'Easter 🌸'}]},
+  4:{us:[{d:'May 11',n:'Mother\'s Day 💐'},{d:'May 26',n:'Memorial Day 🪖'}],ph:[{d:'May 1',n:'Labor Day 👷'},{d:'May 11',n:'Mother\'s Day 💐'}]},
+  5:{us:[{d:'Jun 15',n:'Father\'s Day 👔'},{d:'Jun 19',n:'Juneteenth 🗽'}],ph:[{d:'Jun 12',n:'Independence Day 🎉'},{d:'Jun 15',n:'Father\'s Day 👔'}]},
+  6:{us:[{d:'Jul 4',n:'Independence Day 🎆'}],ph:[{d:'Jul 4',n:'Fil-American Friendship Day 🤝'}]},
+  7:{us:[{d:'Aug',n:'Back to School 📚'}],ph:[{d:'Aug 21',n:'Ninoy Aquino Day 🕊️'},{d:'Aug 25',n:'National Heroes Day 🎖️'}]},
+  8:{us:[{d:'Sep 1',n:'Labor Day 👷'},{d:'Sep 11',n:'Patriot Day 🕯️'}],ph:[{d:'Sep',n:'Buwan ng Wikang Pambansa 📖'}]},
+  9:{us:[{d:'Oct 13',n:'Columbus Day 🧭'},{d:'Oct 31',n:'Halloween 🎃'}],ph:[]},
+  10:{us:[{d:'Nov 11',n:'Veterans Day 🎖️'},{d:'Nov 27',n:'Thanksgiving 🦃'}],ph:[{d:'Nov 1',n:'All Saints\' Day 🕯️'},{d:'Nov 2',n:'All Souls\' Day 🕯️'},{d:'Nov 30',n:'Bonifacio Day 🎖️'}]},
+  11:{us:[{d:'Dec 25',n:'Christmas 🎄'},{d:'Dec 31',n:'New Year\'s Eve 🎆'}],ph:[{d:'Dec 8',n:'Immaculate Conception 🌺'},{d:'Dec 24',n:'Christmas Eve 🌟'},{d:'Dec 25',n:'Christmas 🎄'},{d:'Dec 30',n:'Rizal Day 🎖️'},{d:'Dec 31',n:'New Year\'s Eve 🎆'}]}
+};
 const AVC=['#1d6fa4','#5e35b1','#c2185b','#c97a00','#0d7c4e','#b71c1c','#00797a','#455a64'];
 const QRX=['❤️','🔥','🙌','😂','😮','👏','💪','⭐','🎉','✅','🏆','💯'];
 
@@ -478,200 +460,8 @@ let uname='',me=null,FEED=[],feedSig='',pollT=null;
 let drawOpen=false,drawCol='#222',drawSz=3,drawErase=false,drawMade=false,isDrawing=false,cvInited=false;
 let pendingImg=null;
 
-/* ── DEMO MODE ──────────────────────────────────────────────────────────
-   GitHub Pages can only host static files, so while DEMO_MODE is true the board
-   runs entirely in this browser: a FAKE login and posts saved in localStorage.
-   - Nothing is shared between people or devices.
-   - The login is NOT security. Anyone can read this page's source.
-   When the real login is ready (Vercel + Neon), set DEMO_MODE=false: the same
-   page then talks to the /api server instead. */
-const DEMO_MODE=true;
-const DEMO_PASSWORD='taxace-demo';
-const DB_KEY='tcb:demo:v1';
-const SESS_KEY='tcb:demo:session';
-const _memStore={};
-function lsGet(k){try{return localStorage.getItem(k)}catch(e){return _memStore[k]||null}}
-function lsSet(k,v){
-  try{localStorage.setItem(k,v)}
-  catch(e){
-    if(e&&(e.name==='QuotaExceededError'||e.code===22||e.code===1014))throw new Error('This browser\'s storage is full. Delete a photo post, or use "Reset demo data" in the account menu.');
-    _memStore[k]=v;
-  }
-}
-function lsDel(k){try{localStorage.removeItem(k)}catch(e){}delete _memStore[k]}
-
-function demoSeed(){
-  const now=Date.now(),d=new Date();
-  const mk=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0');
-  const mkM=(id,email,name,role)=>({id,email,name,role,active:true,avatar:null,lastLoginAt:null});
-  const members=[
-    mkM('m_admin','admin@taxace.demo','Demo Admin','admin'),
-    mkM('m_member','member@taxace.demo','Demo Member','member'),
-    mkM('m_sample','sample@taxace.demo','Sample Teammate','member')
-  ];
-  const posts=[
-    {id:'p_seed2',authorId:'m_admin',monthKey:mk,ts:now-3600e3,content:'Heads up: this is a preview of the Community Board. Posts, photos and drawings you add here are saved only in your own browser, so nobody else can see them yet.',img:null,draw:null,reactions:{'✅':['m_sample']},comments:[]},
-    {id:'p_seed1',authorId:'m_sample',monthKey:mk,ts:now-3*3600e3,content:'Welcome to the TaxAce Community Board! 🎉 Share a win, a photo or a drawing with the team.',img:null,draw:null,reactions:{'🎉':['m_admin','m_member'],'👏':['m_member']},comments:[{id:'c_seed1',authorId:'m_admin',content:'Great to see everyone here!',ts:now-2*3600e3}]}
-  ];
-  return{members,posts};
-}
-function dbLoad(){
-  let d=null;
-  try{d=JSON.parse(lsGet(DB_KEY)||'null')}catch(e){}
-  if(!d||!Array.isArray(d.members)||!Array.isArray(d.posts)){d=demoSeed();dbSave(d)}
-  return d;
-}
-function dbSave(d){lsSet(DB_KEY,JSON.stringify(d))}
-
-function nameFromEmail(e){
-  const n=String(e).split('@')[0].split(/[._\-+\d]+/).filter(Boolean).map(w=>w[0].toUpperCase()+w.slice(1)).join(' ');
-  return n||'Team Member';
-}
-function pubMember(m){return{id:m.id,name:m.name,email:m.email,role:m.role,avatarUrl:m.avatar||null}}
-function admMember(m){return Object.assign(pubMember(m),{active:m.active,locked:false,mfaEnabled:false,mustChangePassword:false,lastLoginAt:m.lastLoginAt||null})}
-
-function demoPostView(p,db,cur){
-  const who=id=>db.members.find(m=>m.id===id)||{name:'Former member',avatar:null};
-  const au=who(p.authorId);const reactions={},mine=[];
-  for(const em in p.reactions){const ids=p.reactions[em];if(ids.length){reactions[em]=ids.length;if(ids.includes(cur.id))mine.push(em)}}
-  return{id:p.id,author:au.name,avatarUrl:au.avatar||null,content:p.content,monthKey:p.monthKey,ts:p.ts,editedTs:p.editedTs||null,
-    imgUrl:p.img||null,drawUrl:p.draw||null,reactions,mine,
-    comments:p.comments.map(c=>{const a=who(c.authorId);return{id:c.id,author:a.name,avatarUrl:a.avatar||null,content:c.content,ts:c.ts}}),
-    canEdit:p.authorId===cur.id,canDelete:p.authorId===cur.id||cur.role==='admin'};
-}
-function demoCleanText(v,max,label){
-  const t=String(v==null?'':v).replace(/\r\n/g,'\n').trim();
-  if(t.length>max)throw demoErr(400,label+' is too long ('+max+' characters max).');
-  return t;
-}
-function demoImage(v){
-  if(v==null||v==='')return null;
-  const s=String(v);
-  if(s.length>1500000)throw demoErr(413,'That image is too large. Try a smaller photo.');
-  if(!/^data:image\/(jpeg|png);base64,[A-Za-z0-9+/]+={0,2}$/.test(s))throw demoErr(400,'Only JPEG or PNG images are supported.');
-  return s;
-}
-function demoErr(status,msg){const e=new Error(msg);e.status=status;e.data={};return e}
-
-async function demoApi(path,opts){
-  opts=opts||{};
-  const method=opts.method||'GET',body=opts.body||{};
-  const u=new URL(path,'http://demo/');
-  const parts=u.pathname.replace(/^\/+/,'').split('/').filter(Boolean);
-  const db=dbLoad();
-  const cur=db.members.find(m=>m.id===lsGet(SESS_KEY)&&m.active)||null;
-  const need=()=>{if(!cur)throw demoErr(401,'Please log in.');return cur};
-  const admin=()=>{need();if(cur.role!=='admin')throw demoErr(403,'Admins only.');return cur};
-  const route=parts.join('/');
-
-  if(route==='me'&&method==='GET')return{member:pubMember(need())};
-
-  if(route==='auth/login'&&method==='POST'){
-    const email=String(body.email||'').trim().toLowerCase(),pw=String(body.password||'');
-    if(!email||!pw)throw demoErr(400,'Enter your email and password.');
-    if(pw!==DEMO_PASSWORD)throw demoErr(401,'Incorrect email or password.');
-    let m=db.members.find(x=>x.email===email);
-    if(m&&!m.active)throw demoErr(401,'Incorrect email or password.');
-    if(!m){m={id:uid(),email,name:nameFromEmail(email),role:'member',active:true,avatar:null,lastLoginAt:null};db.members.push(m)}
-    m.lastLoginAt=Date.now();dbSave(db);lsSet(SESS_KEY,m.id);
-    return{member:pubMember(m)};
-  }
-  if(route==='auth/logout'&&method==='POST'){lsDel(SESS_KEY);return{ok:true}}
-
-  if(route==='me/avatar'){
-    need();
-    if(method==='POST')cur.avatar=demoImage(body.imageUrl);
-    else if(method==='DELETE')cur.avatar=null;
-    else throw demoErr(404,'Not found.');
-    dbSave(db);return{member:pubMember(cur)};
-  }
-
-  if(route==='posts'&&method==='GET'){
-    need();
-    const month=u.searchParams.get('month')||'';
-    if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(month))throw demoErr(400,'Invalid month.');
-    const list=db.posts.filter(p=>p.monthKey===month).sort((a,b)=>b.ts-a.ts).slice(0,200);
-    return{posts:list.map(p=>demoPostView(p,db,cur))};
-  }
-  if(route==='posts'&&method==='POST'){
-    need();
-    const content=demoCleanText(body.content,5000,'Your post');
-    const month=String(body.monthKey||'');
-    if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(month))throw demoErr(400,'Invalid month.');
-    if(!content&&!body.imgUrl&&!body.drawUrl)throw demoErr(400,'Write, draw, or add a photo first.');
-    const p={id:uid(),authorId:cur.id,monthKey:month,ts:Date.now(),content,img:demoImage(body.imgUrl),draw:demoImage(body.drawUrl),reactions:{},comments:[]};
-    db.posts.push(p);dbSave(db);return{id:p.id};
-  }
-
-  if(parts[0]==='posts'&&parts.length>=2){
-    need();
-    const p=db.posts.find(x=>x.id===parts[1]);
-    if(!p)throw demoErr(404,'That post no longer exists.');
-    if(parts.length===2&&method==='PATCH'){
-      if(p.authorId!==cur.id)throw demoErr(403,'You can only edit your own posts.');
-      const c=demoCleanText(body.content,5000,'Your post');
-      if(!c)throw demoErr(400,'Post cannot be empty.');
-      p.content=c;p.editedTs=Date.now();dbSave(db);return{ok:true};
-    }
-    if(parts.length===2&&method==='DELETE'){
-      if(p.authorId!==cur.id&&cur.role!=='admin')throw demoErr(403,'You can only delete your own posts.');
-      db.posts=db.posts.filter(x=>x!==p);dbSave(db);return{ok:true};
-    }
-    if(parts[2]==='react'&&method==='POST'){
-      const em=String(body.emoji||'');
-      if(QRX.indexOf(em)<0)throw demoErr(400,'That reaction is not available.');
-      const ids=p.reactions[em]||(p.reactions[em]=[]);
-      const i=ids.indexOf(cur.id);
-      if(i>-1)ids.splice(i,1);else ids.push(cur.id);
-      if(!ids.length)delete p.reactions[em];
-      dbSave(db);
-      const v=demoPostView(p,db,cur);return{reactions:v.reactions,mine:v.mine};
-    }
-    if(parts[2]==='comments'&&method==='POST'){
-      const c=demoCleanText(body.content,1000,'Your comment');
-      if(!c)throw demoErr(400,'Write a comment first.');
-      const cm={id:uid(),authorId:cur.id,content:c,ts:Date.now()};
-      p.comments.push(cm);dbSave(db);
-      return{comment:{id:cm.id,author:cur.name,avatarUrl:cur.avatar||null,content:c,ts:cm.ts}};
-    }
-  }
-
-  if(route==='admin/members'&&method==='GET'){admin();return{members:db.members.map(admMember)}}
-  if(route==='admin/members'&&method==='POST'){
-    admin();
-    const name=String(body.name||'').trim().slice(0,60),email=String(body.email||'').trim().toLowerCase();
-    if(!name||!email)throw demoErr(400,'Enter a name and an email.');
-    if(db.members.some(m=>m.email===email))throw demoErr(400,'That email is already on the team.');
-    const m={id:uid(),email,name,role:body.role==='admin'?'admin':'member',active:true,avatar:null,lastLoginAt:null};
-    db.members.push(m);dbSave(db);
-    return{member:pubMember(m),starterPassword:DEMO_PASSWORD};
-  }
-  if(parts[0]==='admin'&&parts[1]==='members'&&parts.length===4&&method==='POST'){
-    admin();
-    const m=db.members.find(x=>x.id===parts[2]);
-    if(!m)throw demoErr(404,'Not found.');
-    if(m.id===cur.id)throw demoErr(400,'You can\'t change your own account here.');
-    if(parts[3]==='active')m.active=!!body.active;
-    else if(parts[3]==='role')m.role=body.role==='admin'?'admin':'member';
-    else throw demoErr(404,'Not found.');
-    dbSave(db);return{ok:true};
-  }
-  throw demoErr(404,'Not found.');
-}
-
-function resetDemo(){
-  closeAcct();
-  if(!confirm('Reset the demo? This deletes every post, comment and photo saved in this browser and signs you out.'))return;
-  lsDel(DB_KEY);lsDel(SESS_KEY);location.reload();
-}
-
 /* ── API ── */
 async function api(path,opts){
-  if(!DEMO_MODE)return realApi(path,opts);
-  try{return await demoApi(path,opts)}
-  catch(e){if(e.status===401&&me)sessionEnded();throw e}
-}
-async function realApi(path,opts){
   opts=opts||{};
   const o={method:opts.method||'GET',headers:{},credentials:'same-origin'};
   if(opts.body!==undefined){o.headers['Content-Type']='application/json';o.body=JSON.stringify(opts.body)}
@@ -692,6 +482,21 @@ function hasRxn(pid,em){const p=FEED.find(x=>x.id===pid);return !!(p&&p.mine&&p.
 function avStyle(name,url){return url?'background:#8884 url('+esc(url)+') center/cover no-repeat':avSt(name)}
 function avDiv(cls,name,url){return '<div class="'+cls+'" style="'+avStyle(name,url)+'">'+(url?'':esc(ini(name)))+'</div>'}
 function setAv(el,name,url){el.textContent=url?'':ini(name);el.setAttribute('style',avStyle(name,url))}
+
+/* Flags: shown as pictures, because Windows can't draw flag emoji. Returns safe HTML. */
+const FLAG_RE=/(\u{1F1FA}\u{1F1F8}|\u{1F1F5}\u{1F1ED})/u;
+function flagify(text){
+  return String(text==null?'':text).split(FLAG_RE).map(part=>{
+    if(part==='\u{1F1FA}\u{1F1F8}')return '<span class="flag flag-us" role="img" aria-label="US flag"></span>';
+    if(part==='\u{1F1F5}\u{1F1ED}')return '<span class="flag flag-ph" role="img" aria-label="Philippine flag"></span>';
+    return esc(part);
+  }).join('');
+}
+/* Splits a string of emoji into whole symbols (keeps each flag together). */
+function emojiList(str){
+  if(typeof Intl!=='undefined'&&Intl.Segmenter)return [...new Intl.Segmenter(undefined,{granularity:'grapheme'}).segment(str)].map(x=>x.segment).filter(x=>x.trim());
+  return [...str];
+}
 
 /* ── HELPERS ── */
 function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
@@ -721,15 +526,15 @@ function applyTheme(mo){
   // Theme strip
   const ts=document.getElementById('tstrip');
   if(ts)ts.style.background=t.ac;
-  document.getElementById('tstrip-em').textContent=t.icon;
-  document.getElementById('tstrip-em2').textContent=t.icon;
+  document.getElementById('tstrip-em').innerHTML=flagify(t.icon);
+  document.getElementById('tstrip-em2').innerHTML=flagify(t.icon);
   document.getElementById('tstrip-msg').textContent=t.msg;
   // Floating decos
   const layer=document.getElementById('deco-layer');layer.innerHTML='';
-  const ems=[...t.fl];
+  const ems=emojiList(t.fl);
   for(let i=0;i<10;i++){
     const el=document.createElement('span');el.className='df';
-    el.textContent=ems[i%ems.length];
+    el.innerHTML=flagify(ems[i%ems.length]);
     const dur=5+Math.random()*9;
     el.style.cssText='left:'+(Math.random()*100)+'vw;animation-duration:'+dur+'s;animation-delay:'+(-Math.random()*dur)+'s;font-size:'+(1.1+Math.random()*1.2)+'em;opacity:'+(0.08+Math.random()*0.14);
     layer.appendChild(el);
@@ -741,16 +546,16 @@ function chMo(d){curMo+=d;if(curMo>11){curMo=0;curYr++}if(curMo<0){curMo=11;curY
 function applyMonth(){
   const lbl=MO[curMo]+' '+curYr;
   document.getElementById('mo-lbl').textContent=lbl;
-  document.getElementById('bn-mo').textContent=MO_EM[curMo]+' '+lbl;
+  document.getElementById('bn-mo').innerHTML=flagify(MO_EM[curMo])+' '+esc(lbl);
   applyTheme(curMo);renderEvents();if(me)loadFeed();
 }
 
 /* ── EVENTS ── */
 function renderEvents(){
-  const ev=evFor(curMo,curYr);
+  const ev=EV[curMo]||{us:[],ph:[]};
   function r(items,id){
     const el=document.getElementById(id);if(!el)return;
-    el.innerHTML=items.length?items.map(e=>'<div class="ev-it"><span class="ev-d">'+esc(e.d)+'</span><span class="ev-n">'+esc(e.n)+'</span></div>').join(''):'<div class="ev-no">No events this month</div>';
+    el.innerHTML=items.length?items.map(e=>'<div class="ev-it"><span class="ev-d">'+esc(e.d)+'</span><span class="ev-n">'+flagify(e.n)+'</span></div>').join(''):'<div class="ev-no">No events this month</div>';
   }
   r(ev.us,'us-ev');r(ev.ph,'ph-ev');
 }
@@ -872,7 +677,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&me)loadFe
 function renderFeed(){
   const feed=document.getElementById('feed');
   if(!FEED.length){
-    feed.innerHTML='<div class="empty"><div class="em-ico">'+MO_EM[curMo]+'</div><h3>Nothing posted yet for '+MO[curMo]+'</h3><p>Be the first to share something with the team!</p></div>';
+    feed.innerHTML='<div class="empty"><div class="em-ico">'+flagify(MO_EM[curMo])+'</div><h3>Nothing posted yet for '+MO[curMo]+'</h3><p>Be the first to share something with the team!</p></div>';
     return;
   }
   feed.innerHTML=FEED.map(p=>postHtml(p)).join('');
@@ -983,7 +788,7 @@ function showAuth(step,msg){
       +'<label>Email<input type="email" name="email" autocomplete="username" autocapitalize="none" autocorrect="off" required></label>'
       +'<label>Password<input type="password" name="password" autocomplete="current-password" required></label>'
       +'<button class="auth-btn" type="submit">Log in</button></form>'
-      +(DEMO_MODE?'<div class="demo-box"><b>Preview mode.</b> This is a demo with a fake login. Use <code>admin@taxace.demo</code> or <code>member@taxace.demo</code> (any email works) with the password <code>taxace-demo</code>. Posts are saved only in this browser.</div>':'<div class="auth-note">Team members only. Your admin will give you a starter password.</div>');
+      +'<div class="auth-note">Team members only. Your admin will give you a starter password.</div>';
   }else if(step==='change_password'){
     t.textContent='Create your own password';
     sub.textContent='The starter password was only for your first login. Choose a new one that only you know (at least 10 characters).';
@@ -1033,7 +838,7 @@ async function authSubmit(ev,step){
   try{
     if(step==='login'){
       const d=await api('auth/login',{method:'POST',body:{email:fv(f,'email'),password:fv(f,'password')}});
-      if(d.member){me=d.member;enterBoard()}else showAuth(d.next);
+      showAuth(d.next);
     }else if(step==='change_password'){
       if(fv(f,'np')!==fv(f,'np2'))throw new Error('The two passwords do not match.');
       const d=await api('auth/password',{method:'POST',body:{newPassword:fv(f,'np')}});
@@ -1120,18 +925,14 @@ function admRow(m){
   if(m.role==='admin')b.push('<span class="badge ok">Admin</span>');
   if(!m.active)b.push('<span class="badge bad">Deactivated</span>');
   if(m.locked)b.push('<span class="badge bad">Locked (too many attempts)</span>');
-  if(!DEMO_MODE){
-    b.push(m.mfaEnabled?'<span class="badge ok">Authenticator on</span>':'<span class="badge warn">Authenticator not set up</span>');
-    if(m.mustChangePassword)b.push('<span class="badge warn">Still on starter password</span>');
-  }
+  b.push(m.mfaEnabled?'<span class="badge ok">Authenticator on</span>':'<span class="badge warn">Authenticator not set up</span>');
+  if(m.mustChangePassword)b.push('<span class="badge warn">Still on starter password</span>');
   b.push('<span class="badge">Last login: '+esc(fmtDate(m.lastLoginAt))+'</span>');
   const a=[];
   if(!self){
     const id=m.id;
-    if(!DEMO_MODE){
-      a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\'reset-password\')">Reset password</button>');
-      a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\'reset-mfa\')">Reset authenticator</button>');
-    }
+    a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\'reset-password\')">Reset password</button>');
+    a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\'reset-mfa\')">Reset authenticator</button>');
     a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\''+(m.role==='admin'?'make-member':'make-admin')+'\')">'+(m.role==='admin'?'Remove admin':'Make admin')+'</button>');
     a.push('<button class="m-btn alt sm" onclick="admAct(\''+id+'\',\''+(m.active?'deactivate':'activate')+'\')">'+(m.active?'Deactivate':'Reactivate')+'</button>');
   }
@@ -1144,9 +945,7 @@ async function renderAdmin(note){
     let h='';
     if(note){
       lastStarter=note.pw;
-      h+=DEMO_MODE
-        ?'<div class="starter"><b>'+esc(note.title)+'</b><br><small>Preview mode: there are no personal passwords yet. Everyone uses the shared demo password, and people only exist in this browser.</small></div>'
-        :'<div class="starter"><b>'+esc(note.title)+'</b><br><code>'+esc(note.pw)+'</code><button type="button" class="m-btn sm" onclick="copyStarter()">Copy</button><br>'
+      h+='<div class="starter"><b>'+esc(note.title)+'</b><br><code>'+esc(note.pw)+'</code><button type="button" class="m-btn sm" onclick="copyStarter()">Copy</button><br>'
         +'<small>Shown only once. Send it to them privately (not in a group chat). They will choose their own password the first time they log in.</small></div>';
     }
     h+='<form class="adm-add" onsubmit="admAdd(event);return false">'
@@ -1167,7 +966,7 @@ async function admAdd(ev){
   ev.preventDefault();const f=ev.target;
   try{
     const d=await api('admin/members',{method:'POST',body:{name:fv(f,'name'),email:fv(f,'email'),role:fv(f,'role')}});
-    await renderAdmin({title:DEMO_MODE?d.member.name+' was added to the demo team':'Starter password for '+d.member.name+' ('+d.member.email+')',pw:d.starterPassword});
+    await renderAdmin({title:'Starter password for '+d.member.name+' ('+d.member.email+')',pw:d.starterPassword});
   }catch(e){const el=document.getElementById('adm-err');if(el)el.textContent=e.message}
 }
 async function admAct(id,action){
@@ -1233,12 +1032,6 @@ async function removeAvatar(){
 
 /* ── INIT ── */
 async function init(){
-  if(DEMO_MODE){
-    document.body.classList.add('demo');
-    const r=document.getElementById('am-reset');if(r)r.style.display='block';
-    const s=document.querySelector('.hdr-s');if(s)s.textContent='TaxAce Business Solutions · Preview';
-    document.title='TaxAce Community Board (Preview)';
-  }
   applyMonth();
   try{
     const d=await api('me');
